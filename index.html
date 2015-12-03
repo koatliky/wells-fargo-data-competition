@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Wells-fargo-data-competition by koatliky</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Wells-fargo-data-competition</h1>
+      <h2 class="project-tagline"></h2>
+      <a href="https://github.com/koatliky/wells-fargo-data-competition" class="btn">View on GitHub</a>
+      <a href="https://github.com/koatliky/wells-fargo-data-competition/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/koatliky/wells-fargo-data-competition/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h3>
+<a id="well-fargo-data-analytics-competition" class="anchor" href="#well-fargo-data-analytics-competition" aria-hidden="true"><span class="octicon octicon-link"></span></a>Well Fargo Data Analytics Competition</h3>
+
+<p>The Project was created as a part of competition organized by Wells Fargo. The data set consisted of 220,337 posts taken from both FaceBook and Twitter with mediatype specified. The posts contained discussions around four major banks called BankA, BankB, BankC and BankD. The only guideline for competitors was that the analysis needed to be innovative and interesting. </p>
+
+<h3>
+<a id="our-team" class="anchor" href="#our-team" aria-hidden="true"><span class="octicon octicon-link"></span></a>Our team</h3>
+
+<p>The data analysis was a group effort. Our team consisted of 3 students:</p>
+
+<ul>
+<li>
+<a href="https://github.com/mikaelarae" class="user-mention">@mikaelarae</a> - Major: Sociology minoring in Data Science;</li>
+<li>
+<a href="https://github.com/tiffanirgriffith" class="user-mention">@tiffanirgriffith</a> - Major: Math and undegrad in Marine Biology;</li>
+</ul>
+
+<h3>
+<a id="strategy" class="anchor" href="#strategy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Strategy</h3>
+
+<p>Our group was intterested in finding what people say about their experience with given banks when it came to international transactions, travelling and being abroad.</p>
+
+<p>The first step we took was to subset the dateframe into separate dataframes by the bank name and the presense of the following words:
+"abroad" and "foreign".</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-v">bankA.idx</span> <span class="pl-k">=</span> which(sapply(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>,<span class="pl-k">function</span>(<span class="pl-smi">x</span>) grepl(<span class="pl-s"><span class="pl-pds">"</span>BankA<span class="pl-pds">"</span></span>,<span class="pl-smi">x</span>)))
+<span class="pl-v">bankB.idx</span> <span class="pl-k">=</span> which(sapply(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>,<span class="pl-k">function</span>(<span class="pl-smi">x</span>) grepl(<span class="pl-s"><span class="pl-pds">"</span>BankB<span class="pl-pds">"</span></span>,<span class="pl-smi">x</span>)))
+<span class="pl-v">bankC.idx</span> <span class="pl-k">=</span> which(sapply(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>,<span class="pl-k">function</span>(<span class="pl-smi">x</span>) grepl(<span class="pl-s"><span class="pl-pds">"</span>BankC<span class="pl-pds">"</span></span>,<span class="pl-smi">x</span>)))
+<span class="pl-v">bankD.idx</span> <span class="pl-k">=</span> which(sapply(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>,<span class="pl-k">function</span>(<span class="pl-smi">x</span>) grepl(<span class="pl-s"><span class="pl-pds">"</span>BankD<span class="pl-pds">"</span></span>,<span class="pl-smi">x</span>)))
+
+<span class="pl-v">df.bankA</span><span class="pl-k">=</span><span class="pl-smi">df</span>[<span class="pl-smi">bankA.idx</span>,]
+<span class="pl-smi">df.bankA</span>
+<span class="pl-v">abroad.idx</span><span class="pl-k">=</span>which(sapply(<span class="pl-smi">df.bankA</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>,<span class="pl-k">function</span>(<span class="pl-smi">x</span>) grepl(<span class="pl-s"><span class="pl-pds">"</span>abroad<span class="pl-pds">"</span></span>,<span class="pl-smi">x</span>)))
+<span class="pl-smi">abroad.idx</span>
+
+<span class="pl-v">foreign.idx</span><span class="pl-k">=</span>which(sapply(<span class="pl-smi">df.banka</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>,<span class="pl-k">function</span>(<span class="pl-smi">x</span>) grepl(<span class="pl-s"><span class="pl-pds">"</span>foreign<span class="pl-pds">"</span></span>,<span class="pl-smi">x</span>)))
+<span class="pl-smi">foreign.idx</span>
+
+<span class="pl-v">df.final1</span><span class="pl-k">=</span><span class="pl-smi">df.banka</span>[<span class="pl-smi">abroad.idx</span>,]
+<span class="pl-v">df.final2</span><span class="pl-k">=</span><span class="pl-smi">df.banka</span>[<span class="pl-smi">foreign.idx</span>,]
+<span class="pl-k">...</span></pre></div>
+
+<p>Once the dataset was devided into 4 subsets, we then used a modified sentiment analysis. The list of negative words taken from <a href="http://www.cs.uic.edu/%7Eliub/FBS/sentiment-analysis.html*">http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html*</a></p>
+
+<blockquote>
+<p>*Minqing Hu and Bing Liu. "Mining and Summarizing Customer Reviews." 
+Proceedings of the ACM SIGKDD International Conference on Knowledge 
+Discovery and Data Mining (KDD-2004), Aug 22-25, 2004, Seattle, 
+Washington, USA. </p>
+</blockquote>
+
+<p>Besides the list of negative words provided from this source, we added a list of words with negative connotation specifically imposed by bank customers. For example:</p>
+
+<pre><code>Charge
+Carged
+Charging
+....
+Overdraft
+Overdrafted
+Overdrafting
+...
+Widthdraw
+Widthdrawal
+Widthdrew
+...
+</code></pre>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/koatliky/wells-fargo-data-competition">Wells-fargo-data-competition</a> is maintained by <a href="https://github.com/koatliky">koatliky</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
